@@ -17,7 +17,7 @@ x=100
 #importing an image
 player_surf=pygame.image.load('game1\images\player.png').convert_alpha() #convert_alpha for higher frame rate
 player_rect=player_surf.get_frect(center=(WINDOW_WIDTH/2,WINDOW_HEIGHT/2))
-player_direction=pygame.math.Vector2(1,1)
+player_direction=pygame.math.Vector2()
 player_speed=300
 
 star_surf=pygame.image.load('game1\images\star.png').convert_alpha()
@@ -36,20 +36,30 @@ while running:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             running=False
+    #   if event.type==pygame.KEYDOWN and event.key==pygame.K_1:
+    #      print(1)
+    #   if event.type==pygame.MOUSEMOTION:
+    #      player_rect.center = event.pos
 
+    #input
+   #print(pygame.mouse.get_rel())
+    keys=pygame.key.get_pressed()
+   
+    player_direction.x= int(keys[pygame.K_d]) - int(keys[pygame.K_a])
+    player_direction.y= int(keys[pygame.K_s]) - int(keys[pygame.K_w])
+    player_direction=player_direction.normalize() if player_direction else player_direction #ensures speed is constant on diagonal movement
+ 
+    player_rect.center += player_direction * player_speed * dt
 
+    recent_keys = pygame.key.get_just_pressed()
+    if recent_keys[pygame.K_SPACE]:
+        print("Fire Laser")
+   
     #draw the game
     display_surface.fill('darkseagreen') #draw background
     for pos in star_positions: #create 20 stars in random position
         display_surface.blit(star_surf, pos )
     
-    
-    #player movement
-    if player_rect.bottom>=WINDOW_HEIGHT or player_rect.top<=0:
-        player_direction.y *=-1
-    if player_rect.right>=WINDOW_WIDTH or player_rect.left<=0:
-        player_direction.x *=-1
-    player_rect.center+=player_direction*player_speed * dt
     
     display_surface.blit(player_surf,(player_rect)) #draw player
     display_surface.blit(meteor_surf,(meteor_rect))
