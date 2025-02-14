@@ -23,7 +23,7 @@ class Star(pygame.sprite.Sprite):
     def __init__(self, groups, surf):
         super().__init__(groups)
         self.image = star_surf
-        self.rect = self.image.get_frect(center = (random.randint(0,WINDOW_WIDTH),random.randint(0,WINDOW_HEIGHT)))
+        self.rect = self.image.get_frect(center = (random.randint(0,WINDOW_WIDTH),random.randint(0,WINDOW_HEIGHT))) #create 20 random x and y positions for stars
 
 #general setup
 pygame.init()
@@ -43,8 +43,6 @@ star_surf = pygame.image.load('game1\images\star.png').convert_alpha()
 for i in range(20):
     Star(all_sprites,star_surf)
 player=Player(all_sprites)
-
-star_positions=[(random.randint(0,WINDOW_WIDTH),random.randint(0,WINDOW_HEIGHT)) for i in range(20)] #create 20 random x and y positions for stars
 
 meteor_surf=pygame.image.load('game1\images\meteor.png').convert_alpha()
 meteor_rect=meteor_surf.get_frect(center=((WINDOW_WIDTH/2,WINDOW_HEIGHT/2)))
