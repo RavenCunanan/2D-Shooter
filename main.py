@@ -107,8 +107,6 @@ while running:
     display_surface.fill('darkseagreen') #draw background
     all_sprites.draw(display_surface)
 
-
     pygame.display.update()
-
 
 pygame.quit()
