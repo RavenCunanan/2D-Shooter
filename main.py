@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups):
         super().__init__(groups)
@@ -80,6 +81,15 @@ def collisions():
         if collided_sprites:
             laser.kill()
 
+def display_score():
+    current_time = pygame.time.get_ticks() // 10
+    text_surf=font.render(str(current_time), True, '#a0dee8')
+    text_rect = text_surf.get_rect(midbottom=(WINDOW_WIDTH /2, WINDOW_HEIGHT - 50))
+    display_surface.blit(text_surf,text_rect)
+    pygame.draw.rect(display_surface, '#a0dee8', text_rect.inflate(25,25).move(0,-5),5,10)
+
+
+
 #general setup
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT=1280,720
@@ -92,6 +102,8 @@ clock = pygame.time.Clock()
 meteor_surf=pygame.image.load('game1\images\meteor.png').convert_alpha()
 laser_surf=pygame.image.load('game1\images\laser.png').convert_alpha()
 star_surf = pygame.image.load('game1\images\star.png').convert_alpha()
+font = pygame.font.Font('game1\images\Oxanium-Bold.ttf', 36)
+
 
 # sprites
 all_sprites = pygame.sprite.Group()
@@ -122,11 +134,11 @@ while running:
     collisions()
     
     #draw the game
-    display_surface.fill('darkseagreen') #draw background
+    display_surface.fill('#25204f') #draw background
     all_sprites.draw(display_surface)
+    display_score()
 
     # test collision
     pygame.display.update()
-
-
+    
 pygame.quit()
