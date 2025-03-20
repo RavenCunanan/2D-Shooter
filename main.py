@@ -136,11 +136,8 @@ for i in range(20):
 player=Player(all_sprites)
 
 # custom events -> meteor event
-
 meteor_event = pygame.event.custom_type()
 pygame.time.set_timer(meteor_event,500)
-
-test_rect = pygame.FRect(0,0,300,600)
 
 while running:
     dt=clock.tick() /1000
